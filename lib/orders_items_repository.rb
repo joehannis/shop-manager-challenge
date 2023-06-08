@@ -13,16 +13,29 @@ class OrdersItemsRepository
       array
     end
   end
+  
+  def create_order_id(order_id)
+    sql = 'INSERT INTO orders_items (order_id) VALUES ($1);'
+    params = [order_id]
+    result_order = DatabaseConnection.exec_params(sql, params)
+  end
+  
+  def create_item_id(item_id)
+    sql = 'INSERT INTO orders_items (item_id) VALUES ($1);'
+    params = [item_id]
+    result_item = DatabaseConnection.exec_params(sql, params)
+  end
+
+
 
   private
 
   def sort_and_return
     @result_set.each do |record|
-      order = Order.new
-      item = Item.new
-      order.id = record['order_id']
-      item.id = record['item_id']
-      @orders << [order, item]
+      binding.irb
+      order_id = record['order_id']
+      item_id = record['item_id']
+      @orders << [order_id, item_id]
     end
   end
 end

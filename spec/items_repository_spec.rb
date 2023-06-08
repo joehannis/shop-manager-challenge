@@ -19,7 +19,7 @@ RSpec.describe ItemsRepository do
   end
   it 'Returns single item based on item_name' do
     items = ItemsRepository.new
-    result = items.find('bread')
+    result = items.find_by_name_item('bread')
     expect(result.first.price).to eq '2.5'
     expect(result.first.id).to eq '1'
     expect(result.first.quantity).to eq '100'

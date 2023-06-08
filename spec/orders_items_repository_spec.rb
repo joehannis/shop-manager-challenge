@@ -10,24 +10,30 @@ RSpec.describe 'integration' do
     connection = PG.connect({ host: '127.0.0.1', dbname: 'shop_manager_test' })
     connection.exec(seed_sql)
   end
+  
 
   before(:each) do
     reset_orders_items_table
+    
   end
   it 'returns a list of order ids and item ids' do
     repo = OrdersItemsRepository.new
     orders = repo.all
     expect(orders.length).to eq(3)
-    expect(orders[0][1].id).to eq('1')
+    binding.irb
+    expect(orders[0][0]).to eq("1")
   end
-  xit 'creates an order using order and item ids' do
-    repo = OrdersRepository.new
+  it 'updates the orders_items tabled whenever an order is made' do
+    repo = OrdersItemsRepository.new
+    orders = OrdersRepository.new
     order = Order.new
+    items = ItemsRepository.new
     order.customer_name = 'Jim-Bob Jones'
     order.order_date = '26/12/2019'
-    repo.create(order)
-    all_orders = repo.all
-    expect(all_orders).to include(have_attributes(customer_name: order.customer_name, order_date: order.order_date))
-    expect(order_items.id).to eq
+    orders.create(order)
+    result = repo.all
+    binding.irb
+    expect(result[3][0]).to eq('5')
+
   end
 end

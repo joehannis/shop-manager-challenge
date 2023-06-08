@@ -8,9 +8,17 @@ class ItemsRepository
     sort_and_return
   end
 
-  def find(item_name)
+  def find_by_name_item(item_name)
     sql = 'SELECT id, item_name, price, quantity FROM items WHERE item_name = $1;'
     params = [item_name]
+    @result_set = DatabaseConnection.exec_params(sql, params)
+    @items = []
+    sort_and_return
+  end
+
+  def find_by_id_item(id)
+    sql = 'SELECT id, item_name, price, quantity FROM items WHERE id = $1;'
+    params = [id]
     @result_set = DatabaseConnection.exec_params(sql, params)
     @items = []
     sort_and_return

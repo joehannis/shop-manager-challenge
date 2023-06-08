@@ -19,7 +19,7 @@ RSpec.describe OrdersRepository do
   end
   it 'Returns single order based on customer_name' do
     orders = OrdersRepository.new
-    result = orders.find('John Doe')
+    result = orders.find_by_name_order('John Doe')
     expect(result.first.customer_name).to eq 'John Doe'
     expect(result.first.order_date).to eq '26/05/2023'
   end
